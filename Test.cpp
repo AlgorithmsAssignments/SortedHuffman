@@ -1,35 +1,53 @@
 #include "Test.h"
 
+bool checkCodesAreDifferent(map<char,string> codes)
+{
+  for(map<char,string>::iterator i = codes.begin(); i != codes.end(); i++)
+  {
+    map<char,string>::iterator j = i;
+    j++;
+    for(; j != codes.end(); j++)
+    {
+      if((*i).second == (*j).second)
+      {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
 
 void test()
 {
     static const char arr[] = {'a', 'b', 'c', 'd', 'e', 'f'};
-    vector<char> vec (arr, arr + sizeof(arr) / sizeof(arr[0]) );
+    vector<char> vector1_test1 (arr, arr + sizeof(arr) / sizeof(arr[0]) );
 
     static const int arr2[] = {5, 10, 12, 13, 19, 91};
-    vector<int> vec2 (arr2, arr2 + sizeof(arr2) / sizeof(arr2[0]) );
+    vector<int> vector2_test1 (arr2, arr2 + sizeof(arr2) / sizeof(arr2[0]) );
 
-    map<char,string> res = getHuffman(vec, vec2);
-
+    map<char,string> answer1 = getHuffman(vector1_test1, vector2_test1);
 
     static const char arrx[] = {'x', 'y', 'z'};
-    vector<char> vecx (arrx, arrx + sizeof(arrx) / sizeof(arrx[0]) );
+    vector<char> vector1_test2 (arrx, arrx + sizeof(arrx) / sizeof(arrx[0]) );
 
     static const int arr2x[] = {5, 10, 15,};
-    vector<int> vec2x (arr2x, arr2x + sizeof(arr2x) / sizeof(arr2x[0]) );
+    vector<int> vector2_test2 (arr2x, arr2x + sizeof(arr2x) / sizeof(arr2x[0]) );
 
-    map<char,string> resx = getHuffman(vecx, vec2x);
+    map<char,string> answer2 = getHuffman(vector1_test2, vector2_test2);
 
-    if(res['f'] == "0"
-       && res['c'] == "100"
-       && res['d'] == "101"
-       && res['a'] == "1100"
-       && res['b'] == "1101"
-       && res['e'] == "111"
+    if(answer1['f'].length() == 1// == "0"
+       && answer1['c'].length() == 3// == "100"
+       && answer1['d'].length() == 3// == "101"
+       && answer1['a'].length() == 4// == "1100"
+       && answer1['b'].length() == 4// == "1101"
+       && answer1['e'].length() == 3// == "111"
+       && checkCodesAreDifferent(answer1)
 
-       && resx['x'] == "10"
-       && resx['y'] == "11"
-       && resx['z'] == "0"
+       && answer2['x'].length() == 2// == "10"
+       && answer2['y'].length() == 2// == "11"
+       && answer2['z'].length() == 1// == "0"
+       && checkCodesAreDifferent(answer2)
        )
     {
         cout<<"Test: Pass"<<endl;
